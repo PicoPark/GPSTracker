@@ -37,7 +37,8 @@ public class GpsService extends Service implements LocationListener {
              * ça fait crasher l'application avec une exception NULL !
             */
 
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10, 10, this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 10, this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 10, this);
 
             Log.v(TAG, locationManager.toString() + " gps enabled");
         }

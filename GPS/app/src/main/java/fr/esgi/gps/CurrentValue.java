@@ -2,6 +2,8 @@ package fr.esgi.gps;
 
 import android.location.Location;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by srussier on 07/02/2017.
  */
@@ -11,8 +13,7 @@ public class CurrentValue {
     // volatile permet d'éviter le conflit d'utilisation des variable
     private volatile static CurrentValue shared;
 
-    private volatile double longitude;
-    private volatile double latitude;
+    private volatile LatLng latLng;
     private String imei;
 
     private CurrentValue() {}
@@ -25,8 +26,11 @@ public class CurrentValue {
     }
 
     public void setGeolocalisation(Location location) {
-        this.longitude = location.getLongitude();
-        this.latitude = location.getLatitude();
+        latLng = new LatLng( location.getLatitude(),location.getLongitude());
+    }
+
+    public LatLng getGeolocalisation() {
+        return latLng;
     }
 
 }

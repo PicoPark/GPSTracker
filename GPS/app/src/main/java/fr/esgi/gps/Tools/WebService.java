@@ -1,17 +1,15 @@
 package fr.esgi.gps.Tools;
 
-import android.graphics.Point;
-import android.location.Location;
+import android.content.Context;
+import android.os.Environment;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.*;
-import java.util.List;
+
 
 import fr.esgi.gps.Model.LocationJSON;
 import fr.esgi.gps.Model.Utilisateur;
@@ -23,6 +21,7 @@ import fr.esgi.gps.Model.Utilisateur;
 public class WebService {
 
     private final String URL = "https://gpstracker-api.herokuapp.com/";
+
 
     Gson gson;
 
@@ -90,6 +89,23 @@ public class WebService {
 
         }catch (Exception e){
 
+        }
+
+    }
+
+    private void writingFile(String content){
+
+        try {
+
+            FileOutputStream fos= new FileOutputStream(CurrentValue.getInstance().getFileName());
+            OutputStreamWriter outputStreamWriter=new OutputStreamWriter(fos);
+            outputStreamWriter.write(content);
+            outputStreamWriter.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

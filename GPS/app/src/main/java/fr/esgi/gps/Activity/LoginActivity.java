@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import fr.esgi.gps.Model.Utilisateur;
 import fr.esgi.gps.R;
+import fr.esgi.gps.Tools.CurrentValue;
 import fr.esgi.gps.Tools.WebService;
 
 /**
@@ -24,6 +25,11 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(CurrentValue.getInstance().isFileExist()){
+            Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+            startActivity(intent);
+        }
+
         setContentView(R.layout.activity_login);
 
         buttonLogin = (Button)findViewById(R.id.button_login);

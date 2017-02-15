@@ -10,6 +10,10 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
+import fr.esgi.gps.Model.LocationJSON;
+import fr.esgi.gps.Tools.CurrentValue;
+import fr.esgi.gps.Tools.WebService;
+
 /**
  * Created by srussier on 07/02/2017.
  */
@@ -21,6 +25,7 @@ public class GpsService extends Service implements LocationListener {
     private final String TAG = "Gps.GpsService";
 
     private LocationManager locationManager;
+    private WebService ws;
 
     @Override
     public void onCreate() {
@@ -47,9 +52,14 @@ public class GpsService extends Service implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
         CurrentValue.getInstance().setGeolocalisation(location);
+
+        ws.sendLocation(new LocationJSON(
+                location.getLatitude(),
+                location.getLongitude()
+            )
+        );
     }
 
-    // obligatoire pour l'interface LocationListener mais non utilisé
 
     @Override
     public void onProviderDisabled(String provider) {

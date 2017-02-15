@@ -1,41 +1,17 @@
-package fr.esgi.gps;
+package fr.esgi.gps.Activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
 
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.Manifest.permission.READ_CONTACTS;
+import fr.esgi.gps.Model.Utilisateur;
+import fr.esgi.gps.R;
+import fr.esgi.gps.Tools.WebService;
 
 /**
  * A login screen that offers login via email/password.
@@ -60,7 +36,18 @@ public class LoginActivity extends Activity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // appel ws
+                WebService ws = new WebService();
+                boolean result = ws.Connection(
+                        editUser.getText().toString()
+                        ,editPassword.getText().toString()
+                );
+                if (result){
+                    Intent intent = new Intent(LoginActivity.this, MapsActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Mauvais identifiant", Toast.LENGTH_LONG);
+                }
+
             }
         });
 

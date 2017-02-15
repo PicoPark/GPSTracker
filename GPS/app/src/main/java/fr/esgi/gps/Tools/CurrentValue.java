@@ -1,4 +1,4 @@
-package fr.esgi.gps;
+package fr.esgi.gps.Tools;
 
 import android.location.Location;
 
